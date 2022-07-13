@@ -23,7 +23,6 @@ const ToastIcon = ({type}) => {
 
 const Toast = ({ toastList, setToastList }) => {
 
-  const toastRef = useRef()
 
   const deleteToast = (id) => {
     const newtoastList = toastList.filter( toast => toast.id != id)
@@ -52,14 +51,15 @@ const Toast = ({ toastList, setToastList }) => {
 
       if(toastShowing.length !== 0){
 
-        toastRef.current = setInterval( () => {
+        const timerID = setInterval( () => {
        
           toastShowing[0].classList.remove('toast--showing');
           toastShowing = document.querySelectorAll('.toast--showing')
-        
+          console.log(toastShowing.length)
+          if(toastShowing.length === 0){
+            clearInterval(timerID)
+          }
         }, 2000);
-      } else {
-        clearInterval(toastRef.current)
       }
   }, [toastList])
 
@@ -71,7 +71,7 @@ const Toast = ({ toastList, setToastList }) => {
         <div className="toast__container">
           <div className="toast__items">
             {toastList.map( (item ) => (
-                <div className={`toast__item ${item.id} toast--${item.type} toast--showing`} ref={toastRef} key={item.id}>
+                <div className={`toast__item ${item.id} toast--${item.type} toast--showing`} key={item.id}>
                   <div className="toast__inner">
                     <div className="toast__icon">
                     <ToastIcon 
