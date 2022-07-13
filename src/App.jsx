@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Toast from './components/Toast'
-
+import './app.scss'
 const App = () => {
 
     const [toastList, setToastList] = useState([])
@@ -9,7 +9,7 @@ const App = () => {
       const handleShowToast = (type, title, content) => {
           
           const newToast = {
-            id: toastList.length + 1,
+            id: new Date().getTime(),
             type,
             title,
             content

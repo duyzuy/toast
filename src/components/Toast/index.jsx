@@ -35,7 +35,7 @@ const Toast = ({ toastList, setToastList }) => {
 
       const timeID = setInterval( () => {
         deleteToast(toastList[0].id)
-      }, 115000)
+      }, 5000)
 
       return () => {
         clearInterval(timeID)
@@ -55,11 +55,12 @@ const Toast = ({ toastList, setToastList }) => {
        
           toastShowing[0].classList.remove('toast--showing');
           toastShowing = document.querySelectorAll('.toast--showing')
-          console.log(toastShowing.length)
+
           if(toastShowing.length === 0){
             clearInterval(timerID)
           }
-        }, 2000);
+
+        }, 1000);
       }
   }, [toastList])
 
