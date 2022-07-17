@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Toast from './components/Toast'
 import './app.scss'
 const App = () => {
@@ -16,7 +16,7 @@ const App = () => {
           }
           setToastList(prevState => ([...prevState, newToast]))
       }
-    
+    console.log('rerender')
    
 
       
@@ -28,7 +28,10 @@ const App = () => {
             <button onClick={() => handleShowToast("infor", "Dang ky", "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout")}>Show infor</button>
             <button onClick={() => handleShowToast("warning", "Dang ky", "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout")}>Show warning</button>
         </div>
-        <Toast toastList={toastList} setToastList={setToastList}/>
+        <Toast 
+          toastList={toastList} 
+          setToastList={setToastList}
+        />
     </div>
   )
 }
