@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, useRef, memo } from 'react'
 import './style.scss'
 import ToastItem from './ToastItem'
 
@@ -9,35 +9,12 @@ const Toast = ({ toastList, setToastList }) => {
 
 
   const deleteToast = useCallback( (id) => {
-   
-   
+
     setToastList(prevState => {
       return [...prevState.filter(item => item.id !== id)]
-    })
+    }) 
 
-  }, [toastList, setToastList])
-  
-
-  // useEffect( () => {
-
-  //     let toastShowing = document.querySelectorAll('.toast--showing')
-
-  //     if(toastShowing.length !== 0){
-
-  //       const timerID = setInterval( () => {
-       
-  //         toastShowing[0].classList.remove('toast--showing');
-  //         toastShowing[0].classList.add('toast--remove');
-  //         toastShowing = document.querySelectorAll('.toast--showing')
-
-  //         if(toastShowing.length === 0){
-  //           clearInterval(timerID)
-  //         }
- 
-  //       }, 4700);
-  //     }
-  // }, [toastList])
-
+  }, [toastList])
 
 
   return (
@@ -61,4 +38,4 @@ const Toast = ({ toastList, setToastList }) => {
   )
 }
 
-export default Toast
+export default memo(Toast)

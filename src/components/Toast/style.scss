@@ -17,6 +17,7 @@
         padding: 0 15px
     }
     &__item{
+        position: relative;
         padding: 10px 10px;
         display: block;
         box-shadow: 0 5px 10px rgba(0,0,0,0.1);
@@ -25,6 +26,7 @@
         width: 350px;
         background-color: #fff;
         border-radius: 5px;
+        overflow: hidden;
         &.toast--showing{
            animation: moveIn ease-in-out 240ms;
         }
@@ -39,6 +41,16 @@
         .toast__icon{
             margin-right: 15px;
             font-size: 22px;
+        }
+        .toast__progress{
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 2px;
+            width: 100%;
+            animation-name: progressBar;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
         }
     }
     &__title{
@@ -62,6 +74,9 @@
         .toast__icon{
             color: #4caf50
         }
+        .toast__progress{
+            background-color: #4caf50;
+        }
     }
     &--warning{
   
@@ -70,6 +85,9 @@
         }
         .toast__icon{
             color: #ffc107
+        }
+        .toast__progress{
+            background-color: #ffc107;
         }
     }
     &--infor{
@@ -80,6 +98,9 @@
         .toast__icon{
             color: #2196f3
         }
+        .toast__progress{
+            background-color: #2196f3;
+        }
     }
     &--error{
   
@@ -88,6 +109,9 @@
         }
         .toast__icon{
             color: red
+        }
+        .toast__progress{
+            background-color: red;
         }
     }
     
@@ -112,5 +136,14 @@
     to{
         opacity: 0;
         transform: translateX(100%);
+    }
+}
+
+@keyframes progressBar {
+    from {
+        width: 100%;
+    }
+    to {
+        width: 0;
     }
 }

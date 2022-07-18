@@ -3,23 +3,20 @@ import Toast from './components/Toast'
 import './app.scss'
 const App = () => {
 
-    const [toastList, setToastList] = useState([])
-    
-    
-      const handleShowToast = (type, title, content) => {
-          
-          const newToast = {
-            id: new Date().getTime(),
-            type,
-            title,
-            content
-          }
-          setToastList(prevState => ([...prevState, newToast]))
-      }
-    console.log('rerender')
-   
-
+  const [toastList, setToastList] = useState([])
+  
+  
+  const handleShowToast = (type, title, content) => {
       
+      const newToast = {
+        id: new Date().getTime(),
+        type,
+        title,
+        content
+      }
+      setToastList(prevState => ([...prevState, newToast]))
+  }
+
   return (
     <div className="container">
         <div className="buttons">

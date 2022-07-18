@@ -1,4 +1,4 @@
-import React, {memo, useMemo, useEffect, useRef} from 'react'
+import React, {useMemo, useEffect, useRef, useState} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose, faCircleInfo, faCircleExclamation, faTriangleExclamation, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import './style.scss'
@@ -24,6 +24,7 @@ const ToastIcon = ({type}) => {
 const ToastItem = ({item, deleteToast}) => {
 
   const itemRef = useRef()
+  let timmer = 5000;
   const classNames = useMemo( () => {
       let classes = `toast__item toast--${item.type}`;
       classes = classes.concat(' toast--showing')
@@ -34,7 +35,7 @@ const ToastItem = ({item, deleteToast}) => {
 
         const timeID = setInterval( () => {
           deleteToast(item.id)
-        }, 5000)
+        }, timmer)
   
         return () => {
           clearInterval(timeID)
@@ -42,15 +43,14 @@ const ToastItem = ({item, deleteToast}) => {
         }
   
     },[])
+
   useEffect( () => {
 
       const timerID = setInterval( () => {
-      
         itemRef.current.classList.remove('toast--showing');
         itemRef.current.classList.add('toast--remove');
         clearInterval(timerID)
-
-      }, 4700);
+      }, timmer - 240);
   }, [])
 
   return (
@@ -69,9 +69,10 @@ const ToastItem = ({item, deleteToast}) => {
         <div className="toast__close" onClick={() => deleteToast(item.id)}>
             <FontAwesomeIcon icon={faClose} />
         </div>
+        <div className="toast__progress" style={{animationDuration: `${timmer - 240}ms`}}></div>
         </div>
     </div>
   )
 }
 
-export default memo(ToastItem)
+export default ToastItem
