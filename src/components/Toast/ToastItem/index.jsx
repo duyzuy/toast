@@ -1,4 +1,4 @@
-import React, {useMemo, useEffect, useRef, useState, useCallback} from 'react'
+import React, {useMemo, useEffect, useRef, useCallback} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose, faCircleInfo, faCircleExclamation, faTriangleExclamation, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import './style.scss'
@@ -15,11 +15,11 @@ const ToastIcon = ({type}) => {
       case 'warning':
         return <FontAwesomeIcon icon={faTriangleExclamation} />
       default: {
-        return null
+        return <FontAwesomeIcon icon={faClose} />
       }
     }
   
-  }
+}
 
 const ToastItem = ({item, deleteToast}) => {
 
@@ -66,22 +66,19 @@ const ToastItem = ({item, deleteToast}) => {
 
   return (
     <div className={classNames} ref={itemRef}>
-        <div className="toast__inner">
+      <div className="toast__inner">
         <div className="toast__icon">
-        <ToastIcon 
-                type={item.type}
-            /> 
+          <ToastIcon type={item.type} /> 
         </div>
         <div className="toast__body">
-            <div className="toast__title">
-            { item.title }</div>
+            <div className="toast__title">{ item.title }</div>
             <div className="toast__description">{ item.content }</div>
         </div>
         <div className="toast__close" onClick={() => handleDeleteToast(item.id)}>
-            <FontAwesomeIcon icon={faClose} />
+          <ToastIcon  type="close" /> 
         </div>
         <div className="toast__progress" style={{animationDuration: `${duration - 240}ms`}}></div>
-        </div>
+      </div>
     </div>
   )
 }
