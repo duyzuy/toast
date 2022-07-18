@@ -1,4 +1,4 @@
-import React, {useMemo, useEffect, useRef, useState} from 'react'
+import React, {useMemo, useEffect, useRef, useState, useCallback} from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose, faCircleInfo, faCircleExclamation, faTriangleExclamation, faCircleCheck } from '@fortawesome/free-solid-svg-icons'
 import './style.scss'
@@ -24,7 +24,7 @@ const ToastIcon = ({type}) => {
 const ToastItem = ({item, deleteToast}) => {
 
   const itemRef = useRef()
-  let timmer = 5000;
+  const duration = 5000;
   const classNames = useMemo( () => {
       let classes = `toast__item toast--${item.type}`;
       classes = classes.concat(' toast--showing')
@@ -35,11 +35,10 @@ const ToastItem = ({item, deleteToast}) => {
 
         const timeID = setInterval( () => {
           deleteToast(item.id)
-        }, timmer)
+        }, duration)
   
         return () => {
           clearInterval(timeID)
-  
         }
   
     },[])
@@ -50,7 +49,19 @@ const ToastItem = ({item, deleteToast}) => {
         itemRef.current.classList.remove('toast--showing');
         itemRef.current.classList.add('toast--remove');
         clearInterval(timerID)
-      }, timmer - 240);
+      }, duration - 240);
+
+      return () => {
+        clearInterval(timerID);
+      }
+  }, [])
+
+  const handleDeleteToast = useCallback( (id) => {
+    itemRef.current.classList.remove('toast--showing');
+    itemRef.current.classList.add('toast--remove');
+    setTimeout( () => {
+      deleteToast(id)
+    }, 240)
   }, [])
 
   return (
@@ -66,10 +77,10 @@ const ToastItem = ({item, deleteToast}) => {
             { item.title }</div>
             <div className="toast__description">{ item.content }</div>
         </div>
-        <div className="toast__close" onClick={() => deleteToast(item.id)}>
+        <div className="toast__close" onClick={() => handleDeleteToast(item.id)}>
             <FontAwesomeIcon icon={faClose} />
         </div>
-        <div className="toast__progress" style={{animationDuration: `${timmer - 240}ms`}}></div>
+        <div className="toast__progress" style={{animationDuration: `${duration - 240}ms`}}></div>
         </div>
     </div>
   )
