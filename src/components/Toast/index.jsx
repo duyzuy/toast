@@ -1,12 +1,8 @@
-import React, { useCallback, useEffect, useState, useRef, memo } from 'react'
+import React, { useCallback, memo } from 'react'
 import './style.scss'
 import ToastItem from './ToastItem'
 
-
-
-
 const Toast = ({ toastList, setToastList }) => {
-
 
   const deleteToast = useCallback( (id) => {
 
@@ -15,7 +11,6 @@ const Toast = ({ toastList, setToastList }) => {
     }) 
 
   }, [toastList])
-
 
   return (
     <div className="toast">
